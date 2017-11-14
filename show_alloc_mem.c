@@ -6,13 +6,13 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 22:47:07 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/14 23:38:29 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 00:10:50 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-char	*get_type(size_t s)
+static char	*get_type(size_t s)
 {
 	if (s <= TINY)
 		return ("TINY");
@@ -21,7 +21,7 @@ char	*get_type(size_t s)
 	return ("LARGE");
 }
 
-void	show_alloc_mem(void)
+void		show_alloc_mem(void)
 {
 	t_page		*page;
 	t_mblkid	*mtab;

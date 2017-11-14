@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 21:08:50 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/14 22:48:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 00:01:04 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,37 @@ void	*m_seekassign(t_page *page, size_t s)
 			return (blks[i].ptr);
 		}
 		++i;
+	}
+	return (NULL);
+}
+
+/*
+** This function will search threw the memory book and return the location of
+** the targeted memory.
+** If the pointer is not found, then it return NULL, otherwise it return the
+** targeted page and assigned *index* to the index of the seeked memory.
+*/
+
+t_page	*m_seekptr(void *ptr, size_t *id)
+{
+	t_page		*page;
+	t_mblkid	*mtab;
+	size_t		i;
+
+	page = *get_book();
+	while (page)
+	{
+		i = page->blkcount;
+		mtab = page->blks;
+		while (i--)
+		{
+			if (mtab[i].ptr == ptr)
+			{
+				*id = i;
+				return (page);
+			}
+		}
+		page = page->next;
 	}
 	return (NULL);
 }

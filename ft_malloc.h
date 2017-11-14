@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:25:35 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/14 23:35:50 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 00:01:16 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,18 @@ typedef struct		s_page
 # define WHI		"\033[37m"
 
 void				*ft_malloc(size_t size);
+void				ft_free(void *ptr);
 void				show_alloc_mem(void);
 
 t_page				**get_book(void);
 
 t_page				*m_memseek(size_t s);
 void				*m_seekassign(t_page *page, size_t s);
+t_page				*m_seekptr(void *ptr, size_t *id);
 
 t_page				*m_pagenew(size_t size, size_t amount);
 void				m_pagedelete(t_page *page);
 t_page				*m_pageadd(t_page *new);
 
-void	m_pagedescribe(t_page *page); // sup
+void				m_pagedescribe(t_page *page); // sup
 #endif
