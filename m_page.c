@@ -1,16 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_newpage.c                                        :+:      :+:    :+:   */
+/*   m_page.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 19:33:35 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/14 18:01:21 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/14 22:11:15 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
+
+/*
+** Memory pages management department
+*/
+
+t_page	*m_pageadd(t_page *new)
+{
+	t_page	**meta;
+
+	meta = get_meta();
+	if (*meta)
+	{
+		new->prev = (*meta)->prev;
+		if ((*meta)->prev)
+			(*meta)->prev->next = new;
+		new->next = *meta;
+		(*meta)->prev = new;
+	}
+	*meta = new;
+	return (new);
+}
+
+void	m_pagedelete(t_page *page)
+{
+	t_page	**meta;
+
+	meta = get_meta();
+	if (*meta == page)
+		*meta = page->next;
+	if (page->prev)
+		page->prev->next = page->next;
+	if (page->next)
+		page->next->prev = page->prev;
+	ft_bzero(page, page->size);
+	munmap(page, page->size);
+}
 
 static inline void		m_blkinit(t_mblkid *blks, size_t s, size_t blksize)
 {
@@ -37,7 +73,10 @@ static inline t_page	*m_pageinit(t_page *page, size_t const size,
 	page->size = pagesize;
 	page->blkcount = amount;
 	page->blksize = size;
-	m_blkinit(((void *)((unsigned long)page + sizeof(t_page))), amount, size);
+	page->blks = (t_mblkid*)((unsigned long)page + sizeof(t_page));
+	page->raw = (void*)((unsigned long)(page->blks)
+		+ (amount * sizeof(t_mblkid)));
+	m_blkinit(page->blks, amount, size);
 	return (page);
 }
 
@@ -56,7 +95,7 @@ static inline t_page	*m_pageinit(t_page *page, size_t const size,
 **		the following memory is raw user memory for blkcount * blksize
 */
 
-t_page					*m_newpage(size_t size, size_t amount)
+t_page					*m_pagenew(size_t size, size_t amount)
 {
 	const size_t	pagesize = (size_t)getpagesize();
 	size_t			finalsize;
