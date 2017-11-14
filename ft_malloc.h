@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:25:35 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 00:01:16 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 00:38:39 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct		s_page
 
 void				*ft_malloc(size_t size);
 void				ft_free(void *ptr);
+void				*ft_realloc(void *ptr, size_t s);
 void				show_alloc_mem(void);
 
 t_page				**get_book(void);
