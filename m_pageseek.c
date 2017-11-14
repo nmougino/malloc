@@ -6,14 +6,14 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 21:08:50 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/14 22:21:44 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/14 22:48:13 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
 /*
-** This function qill search threw the memory page a page with a corresponding
+** This function will search threw the memory book a page with a corresponding
 ** blocksize and free space, then return it.
 ** ATTENTION must not be used with a LARGE parameter
 */
@@ -26,7 +26,7 @@ t_page	*m_memseek(size_t s)
 
 	if (s > SMALL)
 		return (NULL);
-	tmp = *get_meta();
+	tmp = *get_book();
 	while (tmp)
 	{
 		if (tmp->blksize == s)
@@ -44,6 +44,11 @@ t_page	*m_memseek(size_t s)
 	}
 	return (m_pageadd(m_pagenew(s, 100)));
 }
+
+/*
+** This function will search threw a memory page and return the first free
+** memory plage and return it.
+*/
 
 void	*m_seekassign(t_page *page, size_t s)
 {

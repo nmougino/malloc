@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 19:33:35 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/14 22:11:15 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/14 23:45:20 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,30 @@
 ** Memory pages management department
 */
 
-t_page	*m_pageadd(t_page *new)
+t_page					*m_pageadd(t_page *new)
 {
-	t_page	**meta;
+	t_page	**book;
 
-	meta = get_meta();
-	if (*meta)
+	book = get_book();
+	if (*book)
 	{
-		new->prev = (*meta)->prev;
-		if ((*meta)->prev)
-			(*meta)->prev->next = new;
-		new->next = *meta;
-		(*meta)->prev = new;
+		new->prev = (*book)->prev;
+		if ((*book)->prev)
+			(*book)->prev->next = new;
+		new->next = *book;
+		(*book)->prev = new;
 	}
-	*meta = new;
+	*book = new;
 	return (new);
 }
 
-void	m_pagedelete(t_page *page)
+void					m_pagedelete(t_page *page)
 {
-	t_page	**meta;
+	t_page	**book;
 
-	meta = get_meta();
-	if (*meta == page)
-		*meta = page->next;
+	book = get_book();
+	if (*book == page)
+		*book = page->next;
 	if (page->prev)
 		page->prev->next = page->next;
 	if (page->next)
