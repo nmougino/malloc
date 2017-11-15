@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:28:15 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 01:18:07 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 02:05:09 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	*ft_realloc_from_large(void *ptr, size_t s, t_page *page)
 		page->blks[0].used = s;
 		return (ptr);
 	}
-	if (!(ret = ft_malloc(s)))
+	if (!(ret = malloc(s)))
 		return (NULL);
 	ft_memcpy(ret, ptr, s);
 	m_pagedelete(page);
@@ -43,7 +43,7 @@ static void	*ft_realloc_from_smti(void *ptr, t_page *page, size_t s, size_t id)
 	ret = ptr;
 	if (page->blksize < s)
 	{
-		if (!(ret = ft_malloc(s)))
+		if (!(ret = malloc(s)))
 			return (NULL);
 		ft_memcpy(ret, ptr, s);
 		ft_free(ptr);
@@ -53,17 +53,15 @@ static void	*ft_realloc_from_smti(void *ptr, t_page *page, size_t s, size_t id)
 	return (ret);
 }
 
-void		*ft_realloc(void *ptr, size_t s)
+void		*realloc(void *ptr, size_t s)
 {
 	t_page	*target;
 	size_t	id;
 
+	if (!ptr)
+		return (malloc(s));
 	if (!(target = m_seekptr(ptr, &id)))
-	{
-		ft_dprintf(2, "malloc (nmougino):\n*** error for object %p", ptr);
-		ft_putendl_fd(": pointer being realloc'd was not allocated ***", 2);
-		exit(-1);
-	}
+		return (NULL);
 	if (target->blksize <= SMALL)
 		return (ft_realloc_from_smti(ptr, target, s, id));
 	else

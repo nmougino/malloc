@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:29:08 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/14 23:38:50 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 02:02:48 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_page	**get_book(void)
 	return (&book);
 }
 
-void	*ft_malloc(size_t s)
+void	*malloc(size_t s)
 {
 	t_page	*page;
 
