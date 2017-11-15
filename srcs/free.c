@@ -6,11 +6,17 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 23:50:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 00:14:09 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 01:20:21 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
+
+/*
+** free will free the allocated memory from the page's block table.
+** if the memory is part of a LARGE page ( > SMALL ) then it will destroy the
+** entire page via munmap.
+*/
 
 void	ft_free(void *ptr)
 {

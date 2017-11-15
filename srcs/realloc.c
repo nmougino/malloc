@@ -6,11 +6,17 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:28:15 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 00:52:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 01:18:07 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
+
+/*
+** Realloc changes the allocated memory with the new size.
+** If there is enough space in the current page, and/or there is no need
+** for free and malloc again, then it will simply update the used size param.
+*/
 
 static void	*ft_realloc_from_large(void *ptr, size_t s, t_page *page)
 {
