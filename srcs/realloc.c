@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:28:15 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 02:05:09 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/15 17:30:52 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	*ft_realloc_from_large(void *ptr, size_t s, t_page *page)
 		|| (s > SMALL && s < page->blks[0].used)))
 	{
 		page->blks[0].used = s;
+		page->blksize = s;
 		return (ptr);
 	}
 	if (!(ret = malloc(s)))
