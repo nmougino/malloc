@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:28:15 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 17:30:52 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/16 00:02:04 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	*ft_realloc_from_large(void *ptr, size_t s, t_page *page)
 	}
 	if (!(ret = malloc(s)))
 		return (NULL);
-	ft_memcpy(ret, ptr, s);
+	ft_memcpy(ret, ptr, page->blksize);
 	m_pagedelete(page);
 	return (ret);
 }
@@ -46,7 +46,7 @@ static void	*ft_realloc_from_smti(void *ptr, t_page *page, size_t s, size_t id)
 	{
 		if (!(ret = malloc(s)))
 			return (NULL);
-		ft_memcpy(ret, ptr, s);
+		ft_memcpy(ret, ptr, page->blksize);
 		ft_free(ptr);
 	}
 	else
@@ -61,6 +61,11 @@ void		*realloc(void *ptr, size_t s)
 
 	if (!ptr)
 		return (malloc(s));
+	if (!s)
+	{
+		free(ptr);
+		return (malloc(0));
+	}
 	if (!(target = m_seekptr(ptr, &id)))
 		return (NULL);
 	if (target->blksize <= SMALL)

@@ -6,7 +6,7 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/11/15 01:51:09 by nmougino         ###   ########.fr        #
+#    Updated: 2017/11/16 00:05:43 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,10 @@ OBJDIR =	objs
 
 #	Liste des sources
 SRC =		free.c \
+			realloc.c \
 			m_page.c \
 			m_pageseek.c \
 			malloc.c \
-			realloc.c \
 			show_alloc_mem.c
 LIB =		ft
 OBJ =		$(SRC:.c=.o)

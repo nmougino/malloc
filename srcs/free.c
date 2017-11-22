@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 23:50:33 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 02:04:55 by nmougino         ###   ########.fr       */
+/*   Updated: 2017/11/22 18:31:12 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free(void *ptr)
 	t_page	*target;
 	size_t	id;
 
-	if (!(target = m_seekptr(ptr, &id)))
+	if (!ptr || !(target = m_seekptr(ptr, &id)))
 		return ;
 	if (target->blksize > SMALL)
 		m_pagedelete(target);
