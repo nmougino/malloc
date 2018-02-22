@@ -29,8 +29,8 @@ OBJDIR =	objs
 #	Liste des sources
 SRC =		free.c \
 			calloc.c \
-			reallocf.c \
 			realloc.c \
+			reallocf.c \
 			m_page.c \
 			m_pageseek.c \
 			malloc.c \
@@ -74,6 +74,10 @@ endif
 
 
 UNICORN = "\n \t     \\ \n \t      \\ \n \t       \\\\ \n \t        \\\\ \n \t         >\\/7 \n \t     _.-(6\'  \\          Unicorns get the shit done\n \t    (=___._/\` \\ \n \t         )  \ | \n \t        /   / | \n \t       /    > / \n \t      j    < _\ \n \t  _.-\' :      \`\`. \n \t  \\ r=._\\        \`. \n \t <\`\\\\_  \\         .\`-. \n \t  \\ r-7  \`-. ._  \' .  \`\\ \n \t   \\\`,      \`-.\`7  7)   ) \n \t    \\/         \\|  \\\'  / \`-._ \n \t               ||    .\'                   Be more unicorn.\n \t                \\  ( \n \t                 >\\  > \n \t             ,.-\' >.\' \n \t            <.\'_.\'\' \n \t              <\' \n"
+
+ifeq ($(HOSTTYPE),)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
 
 #	Main rules
 default:
