@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:25:35 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 02:06:06 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/05/21 18:16:35 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@
 # define TINY 128
 # define SMALL 1024
 
-# define MMAP(X) mmap(0, X, PROT_READ |PROT_WRITE, MAP_ANON |MAP_PRIVATE, -1, 0)
+# define PR PROT_READ
+# define PW PROT_WRITE
+# define MA MAP_ANON
+# define MP MAP_PRIVATE
 
 typedef struct		s_mblkid
 {

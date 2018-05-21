@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 19:33:35 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/14 23:45:20 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/05/21 18:14:13 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ t_page					*m_pagenew(size_t size, size_t amount)
 		finalsize += pagesize;
 	if (size <= SMALL)
 		amount += (finalsize - reqsize) / (sizeof(t_mblkid) + size);
-	page = MMAP(finalsize);
+	page = mmap(0, finalsize, PR | PW, MA | MP, -1, 0);
 	return (m_pageinit((t_page*)page, size, amount, finalsize));
 }

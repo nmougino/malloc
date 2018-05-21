@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 23:45:25 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 23:47:56 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/05/21 18:16:10 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	*reallocf(void *ptr, size_t s)
 {
-	return(realloc(ptr, s));
+	return (realloc(ptr, s));
 }

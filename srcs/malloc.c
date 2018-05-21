@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:29:08 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/15 02:02:48 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/05/21 18:02:24 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*malloc(size_t s)
 
 	if (s > SMALL)
 	{
-		if (!(page = m_pageadd(m_pagenew(s, 1))))
+		if (!(page = m_pageadd(m_pagenew(s, 100))))
 			return (NULL);
 	}
 	else if (!(page = m_memseek(s <= TINY ? TINY : SMALL)))
