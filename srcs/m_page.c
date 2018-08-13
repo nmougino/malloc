@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 19:33:35 by nmougino          #+#    #+#             */
-/*   Updated: 2018/07/08 18:36:47 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:15:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,15 @@ void					m_pagedelete(t_page *page)
 	munmap(page, page->size);
 }
 
-static inline void		m_blkinit(t_mblkid *blks, size_t s, size_t blksize)
+static inline void		m_blkinit(t_page *page, size_t s, size_t blksize)
 {
 	size_t	i;
-	void	*raw;
 
 	i = 0;
-	raw = (void*)((unsigned long)blks + (s * sizeof(t_mblkid)));
 	while (i < s)
 	{
-		blks[i].used = (size_t)(-1);
-		blks[i].ptr = (void*)((unsigned long)raw + (i * blksize));
+		(page->blks)[i].used = (size_t)(-1);
+		(page->blks)[i].ptr = (void*)((unsigned long)(page->raw) + (i * blksize));
 		++i;
 	}
 }
@@ -77,7 +75,13 @@ static inline t_page	*m_pageinit(t_page *page, size_t const size,
 	page->blks = (t_mblkid*)((unsigned long)page + sizeof(t_page));
 	page->raw = (void*)((unsigned long)(page->blks)
 		+ (amount * sizeof(t_mblkid)));
-	m_blkinit(page->blks, amount, size);
+	ft_printf("raw offset\n");
+	while (((unsigned long)(page->raw)) % (unsigned long)16)
+	{
+		ft_printf("+1\n");
+		(page->raw) = (void*)((unsigned long)(page->raw) + 1);
+	}
+	m_blkinit(page, amount, size);
 	return (page);
 }
 
@@ -106,7 +110,7 @@ t_page					*m_pagenew(size_t size, size_t amount)
 	if (!amount || !size)
 		return (NULL);
 	finalsize = pagesize;
-	reqsize = (size + sizeof(t_mblkid)) * amount + sizeof(t_page);
+	reqsize = (size + sizeof(t_mblkid)) * amount + sizeof(t_page) + 16;
 	while (finalsize < reqsize)
 		finalsize += pagesize;
 	if (size <= SMALL)
