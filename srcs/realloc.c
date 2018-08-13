@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:28:15 by nmougino          #+#    #+#             */
-/*   Updated: 2017/11/16 00:02:04 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/07/08 20:11:39 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,13 @@ static void	*ft_realloc_from_large(void *ptr, size_t s, t_page *page)
 		page->blksize = s;
 		return (ptr);
 	}
+	pthread_mutex_unlock(&mutex_stock);
 	if (!(ret = malloc(s)))
+	{
+		pthread_mutex_lock(&mutex_stock);
 		return (NULL);
+	}
+	pthread_mutex_lock(&mutex_stock);
 	ft_memcpy(ret, ptr, page->blksize);
 	m_pagedelete(page);
 	return (ret);
@@ -44,10 +49,17 @@ static void	*ft_realloc_from_smti(void *ptr, t_page *page, size_t s, size_t id)
 	ret = ptr;
 	if (page->blksize < s)
 	{
+		pthread_mutex_unlock(&mutex_stock);
 		if (!(ret = malloc(s)))
+		{
+			pthread_mutex_lock(&mutex_stock);
 			return (NULL);
+		}
+		pthread_mutex_lock(&mutex_stock);
 		ft_memcpy(ret, ptr, page->blksize);
-		ft_free(ptr);
+		pthread_mutex_unlock(&mutex_stock);
+		free(ptr);
+		pthread_mutex_lock(&mutex_stock);
 	}
 	else
 		page->blks[id].used = s;
@@ -59,6 +71,7 @@ void		*realloc(void *ptr, size_t s)
 	t_page	*target;
 	size_t	id;
 
+	ft_printf(">>> realloc(%p, %zu)\n", ptr, s);
 	if (!ptr)
 		return (malloc(s));
 	if (!s)
@@ -68,8 +81,9 @@ void		*realloc(void *ptr, size_t s)
 	}
 	if (!(target = m_seekptr(ptr, &id)))
 		return (NULL);
+	pthread_mutex_lock(&mutex_stock);
 	if (target->blksize <= SMALL)
-		return (ft_realloc_from_smti(ptr, target, s, id));
+		return (returnmain(ft_realloc_from_smti(ptr, target, s, id)));
 	else
-		return (ft_realloc_from_large(ptr, s, target));
+		return (returnmain(ft_realloc_from_large(ptr, s, target)));
 }

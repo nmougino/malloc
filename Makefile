@@ -6,13 +6,13 @@
 #    By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/08/07 23:21:20 by nmougino          #+#    #+#              #
-#    Updated: 2017/11/22 18:35:01 by nmougino         ###   ########.fr        #
+#    Updated: 2018/07/08 20:31:13 by nmougino         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #	Compilator - clang est plus sur que gcc
 CC =		clang
-CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded #-g #-fsanitize=address
+CFLAGS =	-Wall -Wextra -Werror -Weverything -Wno-padded -g3 #-g #-fsanitize=address
 
 #	Binary
 NAME =		libft_malloc_$$HOSTTYPE.so

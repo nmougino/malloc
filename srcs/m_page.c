@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 19:33:35 by nmougino          #+#    #+#             */
-/*   Updated: 2018/05/21 18:14:13 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/07/08 18:36:47 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static inline void		m_blkinit(t_mblkid *blks, size_t s, size_t blksize)
 	raw = (void*)((unsigned long)blks + (s * sizeof(t_mblkid)));
 	while (i < s)
 	{
+		blks[i].used = (size_t)(-1);
 		blks[i].ptr = (void*)((unsigned long)raw + (i * blksize));
 		++i;
 	}

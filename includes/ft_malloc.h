@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:25:35 by nmougino          #+#    #+#             */
-/*   Updated: 2018/05/21 18:16:35 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/07/08 20:13:33 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 
 # include <sys/mman.h>
 # include <stdlib.h>
+# include <pthread.h>
 # include "libft.h"
+# include <sys/resource.h>
 
 # define TINY 128
 # define SMALL 1024
@@ -24,6 +26,8 @@
 # define PW PROT_WRITE
 # define MA MAP_ANON
 # define MP MAP_PRIVATE
+
+extern pthread_mutex_t mutex_stock;
 
 typedef struct		s_mblkid
 {
@@ -45,6 +49,7 @@ typedef struct		s_page
 void				show_alloc_mem(void);
 
 t_page				**get_book(void);
+void				*returnmain(void *p);
 
 t_page				*m_memseek(size_t s);
 void				*m_seekassign(t_page *page, size_t s);
