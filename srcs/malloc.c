@@ -6,13 +6,13 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:29:08 by nmougino          #+#    #+#             */
-/*   Updated: 2018/08/13 22:29:23 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:38:35 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-pthread_mutex_t mutex_stock = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t g_mutex_stock = PTHREAD_MUTEX_INITIALIZER;
 
 t_page	**get_book(void)
 {
@@ -23,10 +23,7 @@ t_page	**get_book(void)
 
 void	*returnmain(void *p)
 {
-	pthread_mutex_unlock(&mutex_stock);
-	int i = 0;
-	while (i < 128)
-		++i;
+	pthread_mutex_unlock(&g_mutex_stock);
 	return (p);
 }
 
@@ -35,7 +32,7 @@ void	*malloc(size_t s)
 	t_page			*page;
 	struct rlimit	rlp;
 
-	pthread_mutex_lock(&mutex_stock);
+	pthread_mutex_lock(&g_mutex_stock);
 	getrlimit(RLIMIT_DATA, &rlp);
 	if (s > rlp.rlim_cur)
 		return (returnmain(NULL));

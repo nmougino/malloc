@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 23:50:33 by nmougino          #+#    #+#             */
-/*   Updated: 2018/08/13 22:26:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:37:49 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	free(void *ptr)
 	t_page	*target;
 	size_t	id;
 
-	pthread_mutex_lock(&mutex_stock);
+	pthread_mutex_lock(&g_mutex_stock);
 	if (!ptr || !(target = m_seekptr(ptr, &id)))
 	{
-		pthread_mutex_unlock(&mutex_stock);
+		pthread_mutex_unlock(&g_mutex_stock);
 		return ;
 	}
 	if (target->blksize > SMALL)
@@ -36,5 +36,5 @@ void	free(void *ptr)
 		ft_bzero(target->blks[id].ptr, target->blks[id].used);
 		target->blks[id].used = (size_t)-1;
 	}
-	pthread_mutex_unlock(&mutex_stock);
+	pthread_mutex_unlock(&g_mutex_stock);
 }

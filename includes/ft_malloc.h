@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 14:25:35 by nmougino          #+#    #+#             */
-/*   Updated: 2018/07/08 20:13:33 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:37:49 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define MA MAP_ANON
 # define MP MAP_PRIVATE
 
-extern pthread_mutex_t mutex_stock;
+extern pthread_mutex_t g_mutex_stock;
 
 typedef struct		s_mblkid
 {

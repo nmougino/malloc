@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 19:33:35 by nmougino          #+#    #+#             */
-/*   Updated: 2018/08/13 22:28:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:38:58 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static inline void		m_blkinit(t_page *page, size_t s, size_t blksize)
 	while (i < s)
 	{
 		(page->blks)[i].used = (size_t)(-1);
-		(page->blks)[i].ptr = (void*)((unsigned long)(page->raw) + (i * blksize));
+		(page->blks)[i].ptr = (void*)((unsigned long)(page->raw)
+			+ (i * blksize));
 		++i;
 	}
 }
