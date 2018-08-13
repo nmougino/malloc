@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 21:08:50 by nmougino          #+#    #+#             */
-/*   Updated: 2018/07/08 20:26:22 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:29:05 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,16 @@ void	*m_seekassign(t_page *page, size_t s)
 
 	blks = page->blks;
 	i = 0;
-	ft_printf(">> SEEK AND ASSIGN TRIGGERED (%zu)\n", s);
 	while (i < page->blkcount)
 	{
 		if (blks[i].used == (size_t)(-1))
 		{
-			ft_printf(">> SA: available space found (%zu): %zu - %p\n", page->blksize, i, blks[i].ptr);
 			blks[i].used = s;
-			ft_printf(">> SA: cleaning...\n");
 			ft_bzero(blks[i].ptr, page->blksize);
-			ft_printf(">> SA: space cleaned...\n");
 			return (blks[i].ptr);
 		}
 		++i;
 	}
-	ft_printf(">> SA: no available space found: NULL\n");
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 19:33:35 by nmougino          #+#    #+#             */
-/*   Updated: 2018/08/13 22:15:43 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:28:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,8 @@ static inline t_page	*m_pageinit(t_page *page, size_t const size,
 	page->blks = (t_mblkid*)((unsigned long)page + sizeof(t_page));
 	page->raw = (void*)((unsigned long)(page->blks)
 		+ (amount * sizeof(t_mblkid)));
-	ft_printf("raw offset\n");
 	while (((unsigned long)(page->raw)) % (unsigned long)16)
-	{
-		ft_printf("+1\n");
 		(page->raw) = (void*)((unsigned long)(page->raw) + 1);
-	}
 	m_blkinit(page, amount, size);
 	return (page);
 }

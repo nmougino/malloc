@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:28:15 by nmougino          #+#    #+#             */
-/*   Updated: 2018/07/08 20:11:39 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:29:31 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void		*realloc(void *ptr, size_t s)
 	t_page	*target;
 	size_t	id;
 
-	ft_printf(">>> realloc(%p, %zu)\n", ptr, s);
 	if (!ptr)
 		return (malloc(s));
 	if (!s)

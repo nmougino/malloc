@@ -6,7 +6,7 @@
 /*   By: nmougino <nmougino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/14 23:50:33 by nmougino          #+#    #+#             */
-/*   Updated: 2018/07/08 20:24:58 by nmougino         ###   ########.fr       */
+/*   Updated: 2018/08/13 22:26:43 by nmougino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	free(void *ptr)
 	size_t	id;
 
 	pthread_mutex_lock(&mutex_stock);
-	ft_printf(">>> free(%p)\n", ptr);
 	if (!ptr || !(target = m_seekptr(ptr, &id)))
 	{
 		pthread_mutex_unlock(&mutex_stock);
